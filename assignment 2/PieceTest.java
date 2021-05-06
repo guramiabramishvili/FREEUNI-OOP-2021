@@ -15,7 +15,7 @@ public class PieceTest extends TestCase {
 	// that can be used in tests.
 	private Piece pyr1, pyr2, pyr3, pyr4,L1,L2,S1,S2,Square,Stick;
 	private Piece s, sRotated;
-
+	private Piece[] pieces;
 	protected void setUp() throws Exception {
 		super.setUp();
 
@@ -24,6 +24,7 @@ public class PieceTest extends TestCase {
 		pyr3 = pyr2.computeNextRotation();
 		pyr4 = pyr3.computeNextRotation();
 
+		pieces = Piece.getPieces();
 
 		L1 = new Piece(Piece.L1_STR);
 		L2 = new Piece(Piece.L2_STR);
@@ -68,18 +69,42 @@ public class PieceTest extends TestCase {
 
 	//Test rotations
 	public void test1(){
-
+		assertEquals(L1.computeNextRotation().getWidth(),3);
+		assertEquals(S1.computeNextRotation().getWidth(),2);
+		assertEquals(pieces[0].fastRotation(),Stick.computeNextRotation());
 	}
 
 
 	//Test dimensions
 	public void test2(){
-
+		assertEquals(L1.getWidth(), 2);
+		assertEquals(L1.getHeight(), 3);
+		assertEquals(S1.getWidth(), 3);
+		assertEquals(S1.getHeight(), 2);
+		assertEquals(Square.getHeight(),Square.getWidth());
+		assertEquals(Stick.getHeight(),Stick.computeNextRotation().getWidth());
+		assertEquals(Stick.getWidth(),Stick.computeNextRotation().getHeight());
 	}
 
-	//Test equals
+	//Test equal
 	public void test3(){
+		Piece L1 = pieces[1].fastRotation();
+		Piece L2 = L1.fastRotation();
+		Piece L3 = L2.fastRotation();
+		Piece L4 = L3.fastRotation();
+		Piece L5 = L4.fastRotation();
+		assertTrue(L5.equals(L1));
+		assertTrue(L5 == L1);
+		assertTrue(Arrays.equals(L1.getBody(),L5.getBody()));
+		L5 = L4.computeNextRotation();
+		assertTrue(L5.equals(L1));
+		assertFalse(L5 == L1);
+	}
 
+
+	public void test4(){
+		assertTrue(Arrays.equals(L1.getSkirt(),L2.getSkirt()));
+		assertTrue(Arrays.equals(Square.getSkirt(),Square.computeNextRotation().getSkirt()));
 	}
 
 }
