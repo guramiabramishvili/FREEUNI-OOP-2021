@@ -305,7 +305,6 @@ public class JTetris extends JComponent {
 		score++;
 		
 		if (testMode && count == TEST_LIMIT+1) {
-			System.out.println("too many pieces");
 			 stopGame();
 			 return;
 		}
@@ -327,7 +326,6 @@ public class JTetris extends JComponent {
 		// the blocks at the top allow space
 		// for new pieces to at least be added.
 		if (result>Board.PLACE_ROW_FILLED) {
-			System.out.println("gamover");
 			stopGame();
 		}
 
@@ -470,7 +468,6 @@ public class JTetris extends JComponent {
 			
 			// if the board is too tall, we've lost
 			if (board.getMaxHeight() > board.getHeight() - TOP_SPACE) {
-				System.out.println("gameover");
 				stopGame();
 			}
 			// Otherwise add a new piece and keep playing
@@ -647,7 +644,6 @@ public class JTetris extends JComponent {
 		panel.add(stopButton);
 		stopButton.addActionListener( new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("cancelled");
 				stopGame();
 			}
 		});
