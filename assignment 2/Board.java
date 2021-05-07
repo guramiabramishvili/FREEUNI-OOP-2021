@@ -1,4 +1,3 @@
-
 import java.util.Arrays;
 import junit.framework.TestCase;
 
@@ -112,7 +111,6 @@ public class Board	{
 	 Given a piece and an x, returns the y
 	 value where the piece would come to rest
 	 if it were dropped straight down at that x.
-
 	 <p>
 	 Implementation: use the skirt and the col heights
 	 to compute this fast -- O(skirt length).
@@ -179,7 +177,6 @@ public class Board	{
 	 Copies the piece blocks into the board grid.
 	 Returns PLACE_OK for a regular placement, or PLACE_ROW_FILLED
 	 for a regular placement that causes at least one row to be filled.
-
 	 <p>Error cases:
 	 A placement may fail in two ways. First, if part of the piece may falls out
 	 of bounds of the board, PLACE_OUT_BOUNDS is returned.
@@ -191,6 +188,7 @@ public class Board	{
 	public int place(Piece piece, int x, int y) {
 		// flag !committed problem
 		if (!committed) throw new RuntimeException("place commit problem");
+		committed = false;
 		backup();
 		int row,col = 0;
 		int result = PLACE_OK;
@@ -224,8 +222,8 @@ public class Board	{
 	 things above down. Returns the number of rows cleared.
 	 */
 	public int clearRows() {
-		if(committed == true) committed = false;
-		backup();
+	    if(committed == true) committed = false;
+		//backup();
 		int rowsCleared = 0;
 		boolean wasCleared = false;
 		int to = 0;
@@ -248,7 +246,7 @@ public class Board	{
 
 		for(int i=0; i<width; i++){
 			int ht = 0;
-			for(int j=0; j<height; j++){
+			for(int j=0; j<maxHeight; j++){
 				if(grid[i][j])
 					ht = j + 1;
 			}
